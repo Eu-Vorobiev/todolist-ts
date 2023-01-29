@@ -1,4 +1,5 @@
 import React from 'react';
+import { FilterValuesType } from './App';
 
 // типизация объекта Tasks
 export type TaskType = {
@@ -10,7 +11,9 @@ export type TaskType = {
 // типизация основных пропсов к компоненте Todolist
 type TodolistPropsType = {
   title: string,
-  tasks: Array<TaskType>
+  tasks: Array<TaskType>,
+  removeTask: (id: number) => void  // функция, которая принимает id и ничего не возвращает (void)
+  changeFilter: (value: FilterValuesType) => void  // функция, которая принимает value и ничего не возвращает (void)
 }
 
 export function Todolist(props: TodolistPropsType) {  // принимаем пропсы по типу TodolistPropsType
@@ -22,14 +25,20 @@ export function Todolist(props: TodolistPropsType) {  // принимаем пр
         <button>Add</button>
       </div>
       <ul>
-        <li><input type="checkbox" checked={true} /><span>Learn React</span></li>
-        <li><input type="checkbox" checked={false} /><span>Learn TypeScript</span></li>
-        <li><input type="checkbox" checked={false} /><span>Learn React-Redux</span></li>
+        {
+          props.tasks.map(task => {
+            return <li key={task.id}>
+              <input type='checkbox' checked={task.isDone} />
+              <span>{task.title}</span>
+              <button onClick={() => { props.removeTask(task.id) }}>x</button>
+            </li>
+          })
+        }
       </ul>
       <div>
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
+        <button onClick={() => {props.changeFilter('all')}} >All</button>
+        <button onClick={() => {props.changeFilter('active')}}>Active</button>
+        <button onClick={() => {props.changeFilter('completed')}}>Completed</button>
       </div>
     </div>
   );
