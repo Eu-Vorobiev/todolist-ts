@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import { TaskType, Todolist } from './Todolist';
 import { v1 } from "uuid";
+import { title } from 'process';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
@@ -20,6 +21,12 @@ function App() {
     setTasks(filteredTasks);
   }
 
+  function addTask(title: string) { 
+    let newTask = { id: v1(), title: title, isDone: false };
+    let newTasks = [newTask, ...tasks]; // если добавить tasks, будет добавлен именно массив, а чтобы добавить все элементы массива, нужно добавить ...
+    setTasks(newTasks);
+  }
+
   function changeFilter(value: FilterValuesType) {
     setFilter(value);
   }
@@ -34,7 +41,7 @@ function App() {
 
   return (
     <div className="App">
-      <Todolist title='What to learn' tasks={tasksForTodolist} removeTask={removeTask} changeFilter={changeFilter} />
+      <Todolist title='What to learn' tasks={tasksForTodolist} removeTask={removeTask} changeFilter={changeFilter} addTask={addTask} />
     </div>
   );
 }
