@@ -3,7 +3,7 @@ import { FilterValuesType } from './App';
 
 // типизация объекта Tasks
 export type TaskType = {
-  id: number,
+  id: string,
   title: string,
   isDone: boolean
 }
@@ -12,7 +12,7 @@ export type TaskType = {
 type TodolistPropsType = {
   title: string,
   tasks: Array<TaskType>,
-  removeTask: (id: number) => void  // функция, которая принимает id и ничего не возвращает (void)
+  removeTask: (id: string) => void  // функция, которая принимает id и ничего не возвращает (void)
   changeFilter: (value: FilterValuesType) => void  // функция, которая принимает value и ничего не возвращает (void)
 }
 
