@@ -43,20 +43,21 @@ export function Todolist(props: TodolistPropsType) {  // принимаем пр
   return (
     <div className="Todolist">
       <h1>{props.title}</h1>
-      <div>
-        <input
+      <div className='input-wrap'>
+        <input 
+          className='input'
           value={newTaskTitle}
           onChange={onChangeHandler}
           onKeyUp={onKeyPressHandler}
         />
-        <button onClick={ onAddTaskClick }>Add</button>
+        <button className='add-btn' onClick={ onAddTaskClick }>Add</button>
       </div>
-      <ul>
+      <ul className='list'>
         {
           props.tasks.map(task => {
             const onRemoveHandler = () => props.removeTask(task.id);
 
-            return <li key={task.id}>
+            return <li className='list-item' key={task.id}>
               <input type='checkbox' checked={task.isDone} />
               <span>{task.title}</span>
               <button onClick={ onRemoveHandler }>x</button>
@@ -64,7 +65,7 @@ export function Todolist(props: TodolistPropsType) {  // принимаем пр
           })
         }
       </ul>
-      <div>
+      <div className="btn-wrap">
         <button onClick={onAllClickHandler} >All</button>
         <button onClick={onActiveClickHandler}>Active</button>
         <button onClick={onCompletedClickHandler}>Completed</button>
